@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>114-2 高三科技應用專題作品集 - 徐祈恩</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --sidebar-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            overflow: hidden; /* 防止主視窗捲動，由右側內容區捲動 */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- 上方主題橫幅 --- */
+        header {
+            height: 80px;
+            background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        /* --- 主要佈局 --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- 左方選單 --- */
+        nav {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 40px 20px;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dim);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item:hover {
+            background: var(--glass);
+            color: var(--accent-color);
+        }
+
+        .nav-item.active {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- 右方內容區 --- */
+        main {
+            flex: 1;
+            padding: 50px;
+            overflow-y: auto;
+            background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.05), transparent);
+            scroll-behavior: smooth;
+        }
+
+        .content-section {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* --- 卡片樣式 --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-action {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-action:hover {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .tip-trigger {
+            color: var(--accent-color);
+            text-decoration: underline;
+            cursor: help;
+            font-weight: bold;
+        }
+
+        /* 列表樣式 */
+        .step-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .step-list li {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        /* 進場動畫設定 */
+        [data-aos] {
+            pointer-events: none;
+        }
+        .active [data-aos] {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>114-2 高三科技應用專題作品集 - 31215 徐祈恩</h1>
+    </header>
+
+    <div class="main-container">
+        <nav>
+            <div class="nav-item active" onclick="showSection('intro')">🚀 課程首頁</div>
+            <div class="nav-item" onclick="showSection('game')">🎮 網頁遊戲：黃金神龍</div>
+            <div class="nav-item" onclick="showSection('3d')">🎨 3D作品：美樂蒂</div>
+            <div class="nav-item" onclick="showSection('reflection')">📝 學習反思與總結</div>
+        </nav>
+
+        <main id="content-viewport">
+            <section id="intro" class="content-section active">
+                <div class="glass-card" data-aos="fade-up">
+                    <span class="badge">WELCOME</span>
+                    <h2>探索科技應用的無限可能</h2>
+                    <p>這是我在高三科技應用專題課中的心血結晶。透過 AI 的輔助與 3D 建模工具，我從一個程式門外漢，一步步構建出屬於自己的數位世界。</p>
+                    <p>請點擊左側選單，觀看我的專題成果與創作心路歷程。</p>
+                </div>
+            </section>
+
+            <section id="game" class="content-section">
+                <div class="glass-card" data-aos="fade-right">
+                    <span class="badge">WEB GAME</span>
+                    <h2>黃金神龍</h2>
+                    <p>這是一款透過 Google AI Studio 協作開發的網頁遊戲。</p>
+                    <div style="margin: 30px 0;">
+                        <a href="https://y11202091-design.github.io/game/ai_studio_code%20(5)" target="_blank" class="btn-action">進入遊戲副本</a>
+                    </div>
+                    <p>
+                        <span class="tip-trigger" onclick="showTip('game')">💡 點擊查看：開發中的辛酸史</span>
+                    </p>
+                </div>
+            </section>
+
+            <section id="3d" class="content-section">
+                <div class="glass-card" data-aos="fade-left">
+                    <span class="badge">3D MODELING</span>
+                    <h2>3D作品集A：美樂蒂</h2>
+                    <p>簡介：一隻在電臀的美樂蒂，展現動態與建模的結合。</p>
+                    <div style="margin: 30px 0;">
+                        <a href="https://y11202091-design.github.io/3d/" target="_blank" class="btn-action">觀看 3D 展示網頁</a>
+                    </div>
+                    <p>
+                        <span class="tip-trigger" onclick="showTip('3d')">💡 點擊查看：關於製作網站的心法</span>
+                    </p>
+                </div>
+            </section>
+
+            <section id="reflection" class="content-section">
+                <div class="glass-card" data-aos="zoom-in">
+                    <span class="badge">REFLECTION</span>
+                    <h2>學習反思與總結</h2>
+                    <p>這門課對我來說是一場跨越技術門檻的冒險，總共涵蓋了四大核心部分：</p>
+                    <ul class="step-list">
+                        <li>1. 使用 Monster Mash 及 Polycam 製作 3D 物件</li>
+                        <li>2. 使用 Google AI Studio 生成網頁遊戲</li>
+                        <li>3. 使用 GitHub 上傳與部署網頁</li>
+                        <li>4. 使用 Gemini 生成學習成果網站首頁</li>
+                    </ul>
+                    <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                        <p><strong>最終感悟：</strong></p>
+                        <p>我覺得用 Gemini 做網站其實並不難，雖然處理檔案存取時費了番功夫，但當我看到成果時真的很不可置信。想不到完全不會打程式的我，竟然可以完成！這讓我深信，先前的努力都是值得的。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 初始化動畫
+        AOS.init({
+            duration: 800,
+            once: false,
+            mirror: true
+        });
+
+        // 選單切換功能
+        function showSection(sectionId) {
+            // 更新選單樣式
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // 切換內容區塊
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const target = document.getElementById(sectionId);
+            target.classList.add('active');
+            
+            // 重新觸發 AOS 動畫
+            AOS.refresh();
+            
+            // 回到頂部
+            document.getElementById('content-viewport').scrollTop = 0;
+        }
+
+        // 彈出視窗功能
+        function showTip(type) {
+            if (type === 'game') {
+                Swal.fire({
+                    title: '創作心得：黃金神龍',
+                    text: '我覺得用AI很方便，只需要跟他表達我想怎麼做，但它怎麼理解又是另一回事了。它經常改了一個問題，結果反而延伸出另一個問題，經過這次經驗我更了解如何與AI溝通了！',
+                    icon: 'info',
+                    confirmButtonColor: '#38bdf8',
+                    background: '#1e293b',
+                    color: '#f1f5f9'
+                });
+            } else if (type === '3d') {
+                Swal.fire({
+                    title: '創作心得：美樂蒂網頁',
+                    text: '我原以為要寫一堆程式，實則不然！只需要把檔案貼上去並設定一下，網站就生成了。這是我從來沒有想過的酷經驗！',
+                    icon: 'success',
+                    confirmButtonColor: '#38bdf8',
+                    background: '#1e293b',
+                    color: '#f1f5f9'
+                });
+            }
+        }
+
+        // 進入頁面時的小提醒
+        window.onload = () => {
+            Swal.fire({
+                title: '歡迎進入祈恩的科技專題',
+                text: '準備好探索 AI 與 3D 的結合了嗎？',
+                timer: 2000,
+                showConfirmButton: false,
+                background: '#0f172a',
+                color: '#38bdf8'
+            });
+        };
+    </script>
+</body>
+</html>
